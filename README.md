@@ -1,5 +1,7 @@
 # web-lookup (Obsidian Community plugin)
 
+![listing-image](media/listing-image.png)
+
 **Hold Ctrl → hover a word → left-click → web search for that word.**
 Works in the editor (source + live preview), reading view, canvas text cards and the PDF viewer.
 
