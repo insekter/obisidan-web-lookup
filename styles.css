@@ -2,11 +2,9 @@
    Uses the CSS Custom Highlight API so editor / PDF DOM is never modified. */
 ::highlight(lookuptext-hover) {
   background-color: rgba(var(--interactive-accent-rgb), 0.28);
-  text-decoration: underline;
-  text-decoration-color: var(--interactive-accent);
 }
 
 body.lookuptext-hit .workspace-leaf-content,
 body.lookuptext-hit .workspace-leaf-content * {
-  cursor: pointer !important;
+  cursor: pointer;
 }

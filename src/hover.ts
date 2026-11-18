@@ -50,9 +50,23 @@ type Modifier = "ctrl" | "alt" | "shift" | "meta";
 // DOM helpers
 // ---------------------------------------------------------------------------
 
+interface CaretDocument {
+	caretRangeFromPoint?: (x: number, y: number) => Range | null;
+	caretPositionFromPoint?: (x: number, y: number) => { offsetNode: Node; offset: number } | null;
+}
+
+interface HighlightWindow extends Window {
+	CSS?: {
+		highlights?: {
+			set: (name: string, highlight: unknown) => void;
+			delete: (name: string) => void;
+		};
+	};
+	Highlight?: new (range: Range) => unknown;
+}
+
 function caretFromPoint(doc: Document, x: number, y: number): { node: Node; offset: number } | null {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const d = doc as any;
+	const d = doc as unknown as CaretDocument;
 	if (typeof d.caretRangeFromPoint === "function") {
 		const r: Range | null = d.caretRangeFromPoint(x, y);
 		return r ? { node: r.startContainer, offset: r.startOffset } : null;
@@ -270,21 +284,18 @@ export class HoverController {
 		const doc = hit ? hit.range.startContainer.ownerDocument : null;
 		const win = doc?.defaultView ?? null;
 		if (this.highlightWin && this.highlightWin !== win) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(this.highlightWin as any).CSS?.highlights?.delete(HIGHLIGHT_NAME);
+			(this.highlightWin as HighlightWindow).CSS?.highlights?.delete(HIGHLIGHT_NAME);
 			this.highlightWin = null;
 		}
 		if (win) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			const w = win as any;
+			const w = win as unknown as HighlightWindow;
 			if (w.CSS?.highlights && w.Highlight && hit) {
 				w.CSS.highlights.set(HIGHLIGHT_NAME, new w.Highlight(hit.range));
 				this.highlightWin = win;
 			}
 		}
 		if (!hit && this.highlightWin) {
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(this.highlightWin as any).CSS?.highlights?.delete(HIGHLIGHT_NAME);
+			(this.highlightWin as HighlightWindow).CSS?.highlights?.delete(HIGHLIGHT_NAME);
 			this.highlightWin = null;
 		}
 
@@ -300,9 +311,8 @@ export class HoverController {
 		const found: TFile[] = [];
 		this.plugin.app.workspace.iterateAllLeaves((leaf) => {
 			if (found.length === 0 && leaf.view.containerEl.contains(el)) {
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				const f = (leaf.view as any).file;
-				if (f instanceof TFile) found.push(f);
+				const view = leaf.view as unknown as { file?: unknown };
+				if (view.file instanceof TFile) found.push(view.file);
 			}
 		});
 		return found[0] ?? null;

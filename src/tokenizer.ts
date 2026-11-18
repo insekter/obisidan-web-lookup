@@ -106,7 +106,7 @@ function tokenizeUnicode(text: string, o: TokenizerOptions, push: Push): void {
 		!parts[i].w && parts[i].e - parts[i].s === 1 && INNER_PUNCT.has(text[parts[i].s]);
 
 	let consumed = 0;
-	for (let i = 0; i < n; ) {
+	for (let i = 0; i < n;) {
 		if (!parts[i].w) {
 			i++;
 			continue;
@@ -128,7 +128,9 @@ function tokenizeUnicode(text: string, o: TokenizerOptions, push: Push): void {
 }
 
 function escapeClass(s: string): string {
-	return s.replace(/[\\\]\[^-]/g, "\\$&");
+	return Array.from(s)
+		.map((ch) => (ch === "\\" || ch === "[" || ch === "]" || ch === "-" ? `\\${ch}` : ch))
+		.join("");
 }
 
 function tokenizeDelimited(text: string, o: TokenizerOptions, push: Push): void {

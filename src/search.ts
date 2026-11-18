@@ -11,12 +11,19 @@ export const ENGINES: Record<SearchEngine, { label: string; url: (encodedQuery: 
 	baidu: { label: "Baidu", url: (q) => `https://www.baidu.com/s?wd=${q}` },
 };
 
+interface InternalPluginHost {
+	internalPlugins?: {
+		getEnabledPluginById?: (id: string) => unknown;
+		plugins?: Record<string, { enabled?: boolean }>;
+
+	};
+}
+
 /** True when the Web viewer core plugin exists and is enabled (desktop only). */
 export function isWebViewerEnabled(app: App): boolean {
 	if (!Platform.isDesktopApp) return false;
 	try {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const ip = (app as any).internalPlugins;
+		const ip = (app as unknown as InternalPluginHost).internalPlugins;
 		if (ip?.getEnabledPluginById?.("webviewer")) return true;
 		return !!ip?.plugins?.["webviewer"]?.enabled;
 	} catch {
@@ -71,10 +78,15 @@ async function openInWebViewer(plugin: WebLookupPlugin, url: string): Promise<bo
 	return true;
 }
 
+interface ElectronWindow extends Window {
+	require?: (moduleName: string) => {
+		shell?: { openExternal: (url: string) => void | Promise<void> };
+	};
+}
+
 function openExternal(url: string): void {
 	try {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const electron = (window as any).require?.("electron");
+		const electron = (window as ElectronWindow).require?.("electron");
 		if (electron?.shell?.openExternal) {
 			void electron.shell.openExternal(url);
 			return;

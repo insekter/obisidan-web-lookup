@@ -1,4 +1,5 @@
 import { App, Notice, PluginSettingTab, Setting } from "obsidian";
+import type { SettingDefinitionItem } from "obsidian";
 import type WebLookupPlugin from "./main";
 import type {
 	CaseMode,
@@ -390,5 +391,24 @@ export class WebLookupSettingTab extends PluginSettingTab {
 						await refresh();
 					})
 			);
+	}
+
+	getSettingDefinitions(): SettingDefinitionItem[] {
+		return [
+			{ name: "Modifier key", desc: "Hold this key while hovering to search", aliases: ["ctrl", "alt", "shift", "meta"], control: { type: "dropdown", key: "modifier", options: { ctrl: "Ctrl", alt: "Alt / Option", shift: "Shift", meta: "Cmd / Win" } } },
+			{ name: "Let Obsidian handle links", desc: "Keep normal link behavior", control: { type: "toggle", key: "ignoreLinks" } },
+			{ name: "Search engine", desc: "Choose the web search provider", control: { type: "dropdown", key: "searchEngine", options: { google: "Google", duckduckgo: "DuckDuckGo", bing: "Bing", yandex: "Yandex", baidu: "Baidu" } } },
+			{ name: "Open in browser", desc: "External browser or built-in Web viewer", control: { type: "dropdown", key: "openInBrowser", options: { external: "External browser", webviewer: "Built-in Web viewer" } } },
+			{ name: "Open in tab", desc: "New tab or current tab", control: { type: "dropdown", key: "openInTab", options: { "new-tab": "New tab", "current-tab": "Current tab" } } },
+			{ name: "Delimiters", desc: "Unicode, whitespace, or custom token delimiters", control: { type: "dropdown", key: "delimiterMode", options: { unicode: "Unicode word boundaries", whitespace: "Whitespace only", custom: "Custom characters" } } },
+			{ name: "Custom delimiter characters", desc: "Characters that separate tokens", control: { type: "text", key: "customDelimiters", placeholder: ",;/|" } },
+			{ name: "Language", desc: "Optional BCP 47 segmentation language", control: { type: "text", key: "language", placeholder: "auto" } },
+			{ name: "Punctuation handling", desc: "Split or preserve punctuation", control: { type: "dropdown", key: "punctuation", options: { strip: "Split", inner: "Keep inside words", keep: "Keep all" } } },
+			{ name: "Case sensitivity", desc: "Case handling for search queries", control: { type: "dropdown", key: "caseMode", options: { preserve: "Case-sensitive", lowercase: "Lowercase", uppercase: "UPPERCASE" } } },
+			{ name: "Normalization", desc: "Unicode normalization for search queries", control: { type: "dropdown", key: "normalization", options: { none: "None", NFC: "NFC", NFD: "NFD", NFKC: "NFKC", NFKD: "NFKD", "strip-diacritics": "Strip diacritics" } } },
+			{ name: "Lazy loading", desc: "Load permanent caches on first use", control: { type: "toggle", key: "lazyLoading" } },
+			{ name: "Sliding window", desc: "Keep only recent blocks in memory", control: { type: "toggle", key: "slidingWindow" } },
+			{ name: "Window size", desc: "Blocks per file in the memory cache", control: { type: "text", key: "windowSize", placeholder: "256" } },
+		];
 	}
 }
