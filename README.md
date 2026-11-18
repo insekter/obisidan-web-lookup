@@ -1,4 +1,4 @@
-# web-lookup (Obsidian Community plugin)
+# Web-Lookup (an Obsidian Community plugin)
 
 ![listing-image](media/listing-image.png)
 
