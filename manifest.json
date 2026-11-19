@@ -1,9 +1,9 @@
 {
   "id": "web-lookup",
   "name": "Web-Lookup",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "minAppVersion": "1.8.0",
-  "description": "Hold Ctrl + hover a word, click to search it on the web. Works in the editor, reading view and PDFs.",
+  "description": "Hold Ctrl, hover it, click ... that's a web-lookup.",
   "author": "insekter",
   "isDesktopOnly": false
 }

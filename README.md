@@ -1,9 +1,8 @@
 # Web-Lookup (an Obsidian Community plugin)
 
-**Hold Ctrl → hover a word → left-click → web search for that word.**
-Works in the editor (source + live preview), reading view, canvas text cards and the PDF viewer.
+**Hold Ctrl, hover it, click ... that's a web-lookup.**
 
-![listing-image](media/listing-image.png)
+<img src="media/listing-image_4.png" alt="listing-image" width="600">
 
 ## Settings → behavior
 | Setting | Meaning |
@@ -28,8 +27,3 @@ Tokenization works on "blocks" (editor line, reading-view paragraph, **PDF page*
   * every threshold that is > 0 is met: file **unmodified for ≥ N days** (mtime threshold) **and** cached **tokens ≥ N** (token-count threshold). Both 0 = this rule is off.
   * Disk caches are discarded automatically when the file's mtime/size or the tokenizer settings change.
 * **Lazy loading** – *yes*: a file's disk cache is read the first time you use that file. *no*: all cache files are loaded at startup.
-
-## Notes / limits
-* The Web viewer core plugin has no public API; the plugin opens it with view type `webviewer` and state `{ url, navigate: true }` and falls back to the external browser if that fails.
-* Token highlighting uses the CSS Custom Highlight API (no DOM changes inside the editor or PDF).
-* The cache directory lives in the plugin folder; exclude `cache/` from vault sync if you don't want it synced.

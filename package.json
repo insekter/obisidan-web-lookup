@@ -1,7 +1,7 @@
 {
   "name": "obsidian-web-lookup",
-  "version": "1.2.0",
-  "description": "Ctrl + hover + click to look up any token in a web search.",
+  "version": "1.2.1",
+  "description": "Hold Ctrl, hover it, click ... that's a web-lookup.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",

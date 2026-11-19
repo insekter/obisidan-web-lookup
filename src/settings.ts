@@ -13,7 +13,7 @@ export type Modifier = "ctrl" | "alt" | "shift" | "meta";
 
 export interface WebLookupSettings {
 	// --- open in ---------------------------------------------------------
-	openInBrowser: "external" | "webviewer";
+	openInBrowser: "webviewer" | "external";
 	openInTab: "new-tab" | "current-tab";
 	searchEngine: SearchEngine;
 	modifier: Modifier;
