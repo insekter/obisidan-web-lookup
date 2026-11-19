@@ -1,8 +1,16 @@
-# Web-Lookup (an Obsidian Community plugin)
+<div align="center">
 
-**Hold Ctrl, hover it, click ... that's a web-lookup.**
+# 🌐 Web-Lookup
 
-<img src="media/listing-image_4.png" alt="listing-image" width="600">
+### An Obsidian plugin for instant web searches
+
+**Hold `Ctrl`, hover over a word, and click — that's a web lookup.**
+
+<img src="media/listing-image.png" alt="Web-Lookup preview" width="560">
+
+</div>
+
+---
 
 ## Settings → behavior
 | Setting | Meaning |

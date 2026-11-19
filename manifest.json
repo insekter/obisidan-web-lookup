@@ -3,7 +3,7 @@
   "name": "Web-Lookup",
   "version": "1.2.1",
   "minAppVersion": "1.8.0",
-  "description": "Hold Ctrl, hover it, click ... that's a web-lookup.",
+  "description": "Hold Ctrl, hover over a word, and click — that's a web lookup.",
   "author": "insekter",
   "isDesktopOnly": false
 }
